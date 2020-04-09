@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import NavBar from "../components/navbar";
 import { loadDB } from "../lib/config";
 import Product from "../components/product";
-import Menu from '../components/menu';
+import NavBar from "../components/navbar";
+import Menu from "../components/menu";
+import AuthHoc from "../components/hoc/authhoc";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 export async function getStaticProps() {
   let db = loadDB().firestore();
@@ -11,9 +13,8 @@ export async function getStaticProps() {
     .get()
     .then((querySnapshot) => {
       let data = [];
-
       querySnapshot.forEach(function (doc) {
-        console.log(doc.data());
+        //console.log(doc.data());
         data.push(
           Object.assign(
             {
@@ -37,18 +38,21 @@ export async function getStaticProps() {
   };
 }
 
-export default class Index extends Component {
+class Index extends Component {
   render() {
+    //console.log(this.props.status);
     const products = this.props.products;
     //console.log(products);
     return (
-      <div>
+      <>
         <NavBar />
-        <Menu/>
-        {/* <div className="h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row">
+        {/* <Menu /> */}
+        <div className="h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row">
           <Product products={products} />
-        </div> */}
-      </div>
+        </div>
+      </>
     );
   }
 }
+
+export default AuthHoc(Index);

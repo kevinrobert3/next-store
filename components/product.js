@@ -13,15 +13,21 @@ function Product({ products }) {
               key={product.id}
             >
               <div className="bg-white rounded flex-1">
-                <img
+                {/* <img
                   title={product.Name}
                   className="w-full h-64 object-cover object-center rounded-t cursor-pointer"
                   alt={product.Name}
                   src={product.Image[0]}
-                ></img>
+                ></img> */}
               </div>
               <div className="bg-white rounded-b flex flex-col py-4 pl-2 leading-relaxed lg:py-0">
-                <Link href="/product/[id]" as={`/product/${product.id}`}>
+                <Link
+                  href={{
+                    pathname: "/product/" + `${product.slug_name}`,
+                    query: { key: `${product.id}` },
+                  }}
+                  // as={`/product/${product.slug_name}`}
+                >
                   <a className="cursor-pointer hover:underline font-medium text-base mb-1 ml-1">
                     {product.Name}
                   </a>
