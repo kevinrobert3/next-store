@@ -5,4 +5,28 @@ nav{
     position: fixed;
     top: 0;
 }
+.mobile-bottom-button-bar{
+    border-top-style: solid;
+    border-top-color: #f7fafc;
+    border-top-width: 2px;
+    position: fixed;
+    bottom: 0;
+}
+
+body::-webkit-scrollbar {
+    width: 6px;
+    height: 4px;
+}
+body::-webkit-scrollbar-track {
+    background: #e8f0fd;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: gray;
+}
+
+body {
+    scrollbar-face-color: #83a5ee;
+    scrollbar-track-color: #e8f0fd;
+}
 
