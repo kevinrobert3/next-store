@@ -5,6 +5,9 @@ import NavBar from "../components/navbar";
 import Menu from "../components/menu";
 import AuthHoc from "../components/hoc/authhoc";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+
+import Cart from "../components/cart";
 
 export async function getStaticProps() {
   let db = loadDB().firestore();
@@ -39,20 +42,59 @@ export async function getStaticProps() {
 }
 
 class Index extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  
   render() {
-    //console.log(this.props.status);
+
+    let className =
+      "h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row z-0";
+    //console.log(this.props.cartVisible);
     const products = this.props.products;
-    //console.log(products);
+    //console.log(products);    
     return (
       <>
-        <NavBar />
+        <NavBar
+          makeCartVisible={this.props.makeCartVisible}
+          cartVisibility={this.props.cartVisible}
+          noOfItems={this.props.noOfCartItems}
+        />
         {/* <Menu /> */}
-        <div className="h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row">
-          <Product products={products} />
-        </div>
+        {this.props.cartVisible === true ? (
+          <Cart makeCartVisible={this.props.makeCartVisible}/>
+        ) : null}
+        
+        {this.props.cartVisible === true ? (
+          <div className={(className += " lg:opacity-50")}>
+            <Product products={products} />
+          </div>
+        ) : (
+          <div className={className}>
+            <Product products={products} />
+          </div>
+        )}
       </>
     );
   }
 }
 
-export default AuthHoc(Index);
+const mapStateToProps = (state) => {
+  return {
+    cartVisible: state.cart.cartVisible,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    makeCartVisible: () => {
+      dispatch({
+        type: "MAKE_CART_VISIBLE",
+      });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthHoc(Index));
+//export default AuthHoc(Index);

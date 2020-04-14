@@ -1,18 +1,27 @@
 import React from "react";
 import { loadDB } from "../lib/config";
-function signOut(){
+import { connect } from "react-redux";
+function signOut() {
   let auth = loadDB().auth();
-  auth.signOut().then(function() {
-    // Sign-out successful.
-  }).catch(function(error) {
-    // An error happened.
-  });
+  auth
+    .signOut()
+    .then(function () {
+      // Sign-out successful.
+    })
+    .catch(function (error) {
+      // An error happened.
+    });
 }
+function NavBar({ cartVisibility, noOfCartItems, makeCartVisible }) {
+  let className;
+  if (cartVisibility===true){
+    className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky lg:opacity-50"
+  }else{
+    className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
+  }
 
-function NavBar(props) {
-  //console.log(this.props)
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky">
+    <nav className={className}>
       <svg
         className="fill-current h-5 w-5 cursor-pointer"
         viewBox="0 0 20 20"
@@ -32,14 +41,23 @@ function NavBar(props) {
         >
           <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
         </svg>
-        <span className="font-semibold text-xl text-black tracking-tight" onClick={signOut}>
+        <span
+          className="font-semibold text-xl text-black tracking-tight"
+          onClick={signOut}
+        >
           Next STORE
         </span>
       </div>
       <div className="">
-        <div className="rounded-full bg-red-500 text-xs text-center text-white relative -mb-3 mr-1 ml-4 lg:mr-8 lg:ml-3 lg:-mb-3">
-          1
-        </div>
+        {noOfCartItems > 0 ? (
+          <div
+            className="rounded-full bg-red-500 text-xs text-center text-white relative -mb-3 mr-1 ml-4 lg:mr-8 lg:ml-3 lg:-mb-3 cursor-pointer"
+            onClick={makeCartVisible}
+          >
+            {noOfCartItems}
+          </div>
+        ) : null}
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="25"
@@ -50,6 +68,7 @@ function NavBar(props) {
           strokeLinecap="round"
           strokeLinejoin="round"
           className="cursor-pointer mr-3 lg:mr-10"
+          onClick={makeCartVisible}
         >
           <title>Shopping Cart</title>
           <circle cx="9" cy="21" r="1" />
@@ -60,4 +79,23 @@ function NavBar(props) {
     </nav>
   );
 }
-export default NavBar;
+// openCart = () => {
+//   this.props.makeCartVisible();
+// };
+
+const mapStateToProps = (state) => {
+  return {
+    noOfCartItems: state.cart.noOfItems,
+  };
+};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     makeCartVisible: () => {
+//       dispatch({
+//         type: "MAKE_CART_VISIBLE",
+//       });
+//     },
+//   };
+// };
+
+export default connect(mapStateToProps)(NavBar);

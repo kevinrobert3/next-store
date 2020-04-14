@@ -20,18 +20,18 @@ const AuthHoc = (Component) => {
             });
             //console.log(user);
             if(user.isAnonymous===true){
-                console.log("Anonymous: I'll still show SignUp links");
-                console.log('still load cart items if any')
+                // console.log("Anonymous: I'll still show SignUp links");
+                // console.log('still load cart items if any')
             }else{
-                console.log("Registered User: I'll not show SignUp and login links");
-                console.log("Load user Cart too");
+                // console.log("Registered User: I'll not show SignUp and login links");
+                // console.log("Load user Cart too");
                 this.setState({
                     ...state,
                     anonymous: false,
                   });
             }
           } else {
-            console.log("no user:,, but i'm signing you anonymously right now....");
+            // console.log("no user:,, but i'm signing you anonymously right now....");
             auth.signInAnonymously().catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;

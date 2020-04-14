@@ -3,6 +3,9 @@ import AuthHoc from "../../components/hoc/authhoc";
 import NavBar from "../../components/navbar";
 import { loadDB } from "../../lib/config";
 
+import { connect } from "react-redux";
+import Cart from "../../components/cart";
+
 export async function getServerSideProps(context) {
   let docID = context.query.key;
 
@@ -31,20 +34,30 @@ export async function getServerSideProps(context) {
   };
 }
 
-const Post = ({ data }) => {
-  //console.log(data[0]);
+const Post = ({ data, cartVisible, makeCartVisible}) => {
+  // console.log(makeCartVisible);
+  // console.log(cartVisible);
+
   const router = useRouter();
   //console.log(router);
   const { id } = router.query;
   const { key } = router.query;
   //console.log(id);
   //console.log(key);
+  let className;
+  if (cartVisible===true){
+    className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row lg:opacity-50"
+  }else{
+    className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row"
+  }
 
   return (
     <>
-      <NavBar />
+      <NavBar makeCartVisible={makeCartVisible} cartVisibility={cartVisible} />
 
-      <div className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row">
+      {cartVisible === true ? <Cart makeCartVisible={makeCartVisible} /> : null}
+
+      <div className={className}>
         <div className="w-full h-screen lg:p-2 bg-white flex flex-col lg:flex-row">
           <div className="h-full w-full lg:w-3/5 bg-white flex flex-row">
             <img
@@ -113,7 +126,7 @@ const Post = ({ data }) => {
       </div>
 
       <div className="w-full h-auto bg-white shadow-2xl block lg:hidden fixed bottom-0 flex justify-center mobile-bottom-button-bar">
-        <button className="bg-black text-white py-2 px-20 rounded my-2">
+        <button className="bg-black text-white py-2 px-24 rounded my-2">
           Add to Cart
         </button>
       </div>
@@ -121,4 +134,21 @@ const Post = ({ data }) => {
   );
 };
 
-export default Post;
+const mapStateToProps = (state) => {
+  return {
+    cartVisible: state.cart.cartVisible,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    makeCartVisible: () => {
+      dispatch({
+        type: "MAKE_CART_VISIBLE",
+      });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthHoc(Post));
+//export default Post;
