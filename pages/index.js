@@ -6,6 +6,7 @@ import Menu from "../components/menu";
 import AuthHoc from "../components/hoc/authhoc";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { CSSTransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Cart from "../components/cart";
 
@@ -46,14 +47,12 @@ class Index extends Component {
     super(props);
   }
 
-  
   render() {
-
     let className =
-      "h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row z-0";
+      "h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row";
     //console.log(this.props.cartVisible);
     const products = this.props.products;
-    //console.log(products);    
+    //console.log(products);
     return (
       <>
         <NavBar
@@ -63,12 +62,22 @@ class Index extends Component {
         />
         {/* <Menu /> */}
         {this.props.cartVisible === true ? (
-          <Cart makeCartVisible={this.props.makeCartVisible}/>
+          <CSSTransitionGroup key="cart" transitionName="step" transitionEnterTimeout={1000} transitionLeaveTimeout={2000}>
+            
+             {/* <CSSTransition> */}
+              <Cart makeCartVisible={this.props.makeCartVisible} />
+            
+            {/* </CSSTransition> */}
+             
+          </CSSTransitionGroup>
         ) : null}
-        
+
+        <div className={className}>
+          <Product products={products} />
+        </div>
 
         {/* += " lg:opacity-100" */}
-        {this.props.cartVisible === true ? (
+        {/* {this.props.cartVisible === true ? (
           <div className={(className )}>
             <Product products={products} />
           </div>
@@ -76,7 +85,7 @@ class Index extends Component {
           <div className={className}>
             <Product products={products} />
           </div>
-        )}
+        )} */}
       </>
     );
   }
