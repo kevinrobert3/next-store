@@ -66,8 +66,10 @@ class Index extends Component {
           <Cart makeCartVisible={this.props.makeCartVisible}/>
         ) : null}
         
+
+        {/* += " lg:opacity-100" */}
         {this.props.cartVisible === true ? (
-          <div className={(className += " lg:opacity-50")}>
+          <div className={(className )}>
             <Product products={products} />
           </div>
         ) : (

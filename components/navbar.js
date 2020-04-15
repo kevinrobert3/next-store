@@ -15,7 +15,7 @@ function signOut() {
 function NavBar({ cartVisibility, noOfCartItems, makeCartVisible }) {
   let className;
   if (cartVisibility===true){
-    className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky lg:opacity-50"
+    className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
   }else{
     className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
   }

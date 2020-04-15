@@ -32,9 +32,9 @@ body {
 
   
 }
-#__next{
+/* #__next{
   background-color: #A0AEC0;
-}
+} */
 
 .slide-right{
   -webkit-animation: slide-right 0.2s ease-in-out forwards;

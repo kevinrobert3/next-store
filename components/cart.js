@@ -21,13 +21,9 @@ class Cart extends Component {
 
   componentWillUnmount = () => {
     console.log("unmounting")
-//    let timer= setTimeout(function(){
-//      console.log("fesfe")
-// clearTimeout(timer)
-//     }, 5000)
     document.removeEventListener("mousedown", this.handleClick);
     //document.getElementById('cart').classList.remove('slide-left');
-    document.getElementById('cart').classList.add('slide-right');
+    //document.getElementById('cart').classList.add('slide-right');
   };
 
   handleClick = (e) => {
@@ -44,7 +40,7 @@ class Cart extends Component {
   render() {
     return (
       <div
-        className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 slide-left flex flex-col shadow-lg z-50"
+        className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 slide-left flex flex-col shadow-lg"
         id="cart"
         ref={(node) => (this.node = node)}
       >

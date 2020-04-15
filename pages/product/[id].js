@@ -46,7 +46,7 @@ const Post = ({ data, cartVisible, makeCartVisible}) => {
   //console.log(key);
   let className;
   if (cartVisible===true){
-    className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row lg:opacity-50"
+    className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row"
   }else{
     className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row"
   }
