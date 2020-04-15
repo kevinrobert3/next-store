@@ -29,8 +29,6 @@ body {
   scrollbar-face-color: #83a5ee;
   scrollbar-track-color: #e8f0fd;
   /* background-color: red; */
-
-  
 }
 /* #__next{
   background-color: #A0AEC0;
@@ -54,13 +52,10 @@ body {
   }
 } */
 
-
 /* .slide-left {
   -webkit-animation: slide-left 0.2s ease-in-out forwards;
   animation: slide-left 0.2s ease-in-out forwards;
 } */
-
-
 
 /* @-webkit-keyframes slide-left {
   0% {
@@ -85,17 +80,17 @@ body {
   }
 } */
 
-#close{
+#close {
   margin-top: 0.1rem;
 }
-.cart-head-bottom-shadow{
+.cart-head-bottom-shadow {
   border-bottom-style: solid;
-  border-bottom-color:#CBD5E0;
+  border-bottom-color: #cbd5e0;
   border-bottom-width: 1px;
 }
-.cart-total-bottom-shadow{
+.cart-total-bottom-shadow {
   border-top-style: solid;
-  border-top-color:#CBD5E0;
+  border-top-color: #cbd5e0;
   border-top-width: 1px;
 }
 /* .cart-total{
@@ -109,24 +104,63 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
+.step-appear {
+  opacity: 0;
+}
+
 .step-enter {
+  opacity: 1;
+}
+
+.step-enter-done {
+  opacity: 1;
+  transition: transform 1000ms, opacity 1000ms;
+  -webkit-animation: slide-left 0.9s ease-in-out forwards;
+  animation: slide-left 0.9s ease-in-out forwards;
+}
+
+.step-exit {
+  transform: rotate(720deg) scale(3);
+  opacity: 1;
+}
+
+.step-exit-active {
+  transform: rotate(360deg) scale(1);
+  opacity: 0;
+  transition: transform 1000ms, opacity 1000ms;
+}
+
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0%;
+  }
+  100% {
+    -webkit-transform: translateX(-0%);
+    transform: translateX(-0%);
+    opacity: 100%;
+  }
+}
+
+/* .step-enter {
   opacity: 0.01;
 }
 
-.step-enter.step-enter-active {
+.step-enter-active {
   opacity: 1;
-  transition: opacity 1000ms ease-in;
+  transition: opacity 2000ms ease-in;
 }
 
-.step-leave {
+.step-exit {
   opacity: 1;
 }
 
-.step-leave.step-leave-active {
+.step-exit-active {
   opacity: 0.01;
   transition: opacity 1200ms ease-in;
-}
+} */

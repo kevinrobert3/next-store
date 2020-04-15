@@ -18,16 +18,16 @@ function NavBar({ cartVisibility, noOfCartItems, makeCartVisible }) {
     className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
  // }else{
    // className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
-  //}
+  // }
 
   return (
     <nav className={className}>
-      <svg
+      <svg onClick={makeCartVisible}
         className="fill-current h-5 w-5 cursor-pointer"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <title>Menu</title>
+        <title >Menu</title>
         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
       </svg>
       {/* </button> */}

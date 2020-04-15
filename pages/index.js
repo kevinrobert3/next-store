@@ -6,7 +6,12 @@ import Menu from "../components/menu";
 import AuthHoc from "../components/hoc/authhoc";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { CSSTransitionGroup, CSSTransition } from 'react-transition-group';
+import {
+  Transition,
+  CSSTransitionGroup,
+  CSSTransition,
+  TransitionGroup,
+} from "react-transition-group";
 
 import Cart from "../components/cart";
 
@@ -60,16 +65,29 @@ class Index extends Component {
           cartVisibility={this.props.cartVisible}
           noOfItems={this.props.noOfCartItems}
         />
+
         {/* <Menu /> */}
         {this.props.cartVisible === true ? (
-          <CSSTransitionGroup key="cart" transitionName="step" transitionEnterTimeout={1000} transitionLeaveTimeout={2000}>
-            
-             {/* <CSSTransition> */}
-              <Cart makeCartVisible={this.props.makeCartVisible} />
-            
-            {/* </CSSTransition> */}
-             
-          </CSSTransitionGroup>
+          <CSSTransition
+            in={this.props.cartVisible}
+            out={true}
+            timeout={0}
+            appear={true}
+            unmountOnExit
+            // onEnter={()=>{
+            //   console.log("in")
+            // }}
+            onExiting={()=>{
+              console.log("onExiting")
+            }}
+            // onExit={()=>{
+            //   console.log("onExit")
+            // }}
+            classNames="step"
+          >
+            {/* <p className="text-sm text-purple-700 text-center">wfewf</p> */}
+            <Cart makeCartVisible={this.props.makeCartVisible} />
+          </CSSTransition>
         ) : null}
 
         <div className={className}>
