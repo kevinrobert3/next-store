@@ -1,5 +1,5 @@
 const initState ={
-    cartVisible:false,
+    cartVisible: false,
     noOfItems: 6,
     cartItems:[
         {
@@ -11,15 +11,15 @@ const initState ={
 
 const cartReducer=(state=initState, action)=>{
     if(action.type==="MAKE_CART_VISIBLE"){
-       // console.log(action)
        let cartVisibility;
        if(state.cartVisible===true){
            cartVisibility=false;
-           //return cartVisibility;
+           //console.log(cartVisibility);
        }else{
            cartVisibility=true;
-           //return cartVisibility;
+           //console.log(cartVisibility);
        }
+       console.log(cartVisibility)
        return{
         ...state,
         cartVisible: cartVisibility,

@@ -6,6 +6,7 @@ import Menu from "../components/menu";
 import AuthHoc from "../components/hoc/authhoc";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import Item from "../components/animate";
 import {
   Transition,
   CSSTransitionGroup,
@@ -58,6 +59,7 @@ class Index extends Component {
     //console.log(this.props.cartVisible);
     const products = this.props.products;
     //console.log(products);
+    //console.log(this.props.cartVisible)
     return (
       <>
         <NavBar
@@ -67,28 +69,26 @@ class Index extends Component {
         />
 
         {/* <Menu /> */}
-        {this.props.cartVisible === true ? (
+
+        {/* <Item></Item> */}
+        
+        
           <CSSTransition
-            in={this.props.cartVisible}
-            out={true}
-            timeout={0}
-            appear={true}
-            unmountOnExit
-            // onEnter={()=>{
-            //   console.log("in")
-            // }}
-            onExiting={()=>{
-              console.log("onExiting")
-            }}
-            // onExit={()=>{
-            //   console.log("onExit")
-            // }}
-            classNames="step"
-          >
-            {/* <p className="text-sm text-purple-700 text-center">wfewf</p> */}
-            <Cart makeCartVisible={this.props.makeCartVisible} />
-          </CSSTransition>
-        ) : null}
+        in={this.props.cartVisible}
+        timeout={{
+          appear: 0,
+          enter: 0,
+          exit: 1000,
+        }}
+        appear={true}
+        unmountOnExit
+        classNames="step"
+      >
+          <Cart makeCartVisible={this.props.makeCartVisible} />
+        </CSSTransition>
+     
+
+       
 
         <div className={className}>
           <Product products={products} />

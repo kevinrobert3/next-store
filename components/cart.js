@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { CSSTransitionGroup } from "react-transition-group";
-// import {
-//   CSSTransitionGroup,
-//   TransitionGroup,
-//   CSSTransition,
-// } from "react-transition-group";
+import {
+  Transition,
+  CSSTransitionGroup,
+  CSSTransition,
+  TransitionGroup,
+} from "react-transition-group";
 
 class Cart extends Component {
   constructor(props) {
@@ -32,6 +32,8 @@ class Cart extends Component {
     //document.getElementById('cart').classList.add('slide-right');
   };
 
+  //console.log(this.props.cartVisible);
+
   // handleClick = (e) => {
   //   if (this.node.contains(e.target)) {
   //     // console.log("inside");
@@ -41,15 +43,11 @@ class Cart extends Component {
   //   // console.log("outside");
   // };
 
-  // console.log(props.cartVisible);
   //console.log(props.handleClick);
   render() {
     return (
-      <>
         <div
           className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 flex flex-col shadow-lg"
-          // key="cart"
-          //ref={(node) => (this.node = node)}
         >
           <div className="w-full h-12 bg-white lg:bg-white fixed top-0 px-5 py-3 relative leading-none cart-head-bottom-shadow">
             <span className="font-semibold">Shopping Cart</span>
@@ -125,7 +123,7 @@ class Cart extends Component {
             </button>
           </div>
         </div>
-      </>
+      
     );
   }
 }
@@ -136,4 +134,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Cart);
+export default connect(mapStateToProps)(Cart);
