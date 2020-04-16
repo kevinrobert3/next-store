@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import AuthHoc from "../../components/hoc/authhoc";
 import NavBar from "../../components/navbar";
 import { loadDB } from "../../lib/config";
-
 import { connect } from "react-redux";
 import Cart from "../../components/cart";
+import { CSSTransition } from "react-transition-group";
+import { addItem } from "../../store/actions/cartActions";
 
 export async function getServerSideProps(context) {
   let docID = context.query.key;
@@ -18,9 +19,14 @@ export async function getServerSideProps(context) {
     .get()
     .then(function (doc) {
       if (doc.exists) {
-        //console.log("Document data:", doc.data());
-        data.push(doc.data());
-        //return doc.data();
+        data.push(
+          Object.assign(
+            {
+              id: doc.id,
+            },
+            doc.data()
+          )
+        );
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -34,7 +40,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-const Post = ({ data, cartVisible, makeCartVisible}) => {
+const Post = ({ data, cartVisible, makeCartVisible, addItem }) => {
   // console.log(makeCartVisible);
   // console.log(cartVisible);
 
@@ -45,19 +51,37 @@ const Post = ({ data, cartVisible, makeCartVisible}) => {
   //console.log(id);
   //console.log(key);
   let className;
-  //if (cartVisible===true){
-    className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row"
-  //}else{
-    //className="h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row"
-  //}
+  if (cartVisible === true) {
+    className =
+      "h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row lg:opacity-50";
+  } else {
+    className =
+      "h-screen w-full bg-white py-0 px-8 lg:px-32 flex flex-col lg:flex-row";
+  }
+
+  function addToCart(item) {
+    addItem(data[0])
+   
+  }
 
   return (
     <>
       <NavBar makeCartVisible={makeCartVisible} cartVisibility={cartVisible} />
+      <CSSTransition
+        in={cartVisible}
+        timeout={{
+          appear: 0,
+          enter: 0,
+          exit: 1000,
+        }}
+        appear={true}
+        unmountOnExit
+        classNames="step"
+      >
+        <Cart makeCartVisible={makeCartVisible} />
+      </CSSTransition>
 
-      {cartVisible === true ? <Cart makeCartVisible={makeCartVisible} /> : null}
-
-      <div className={className}>
+      <div className={className} id="main">
         <div className="w-full h-screen lg:p-2 bg-white flex flex-col lg:flex-row">
           <div className="h-full w-full lg:w-3/5 bg-white flex flex-row">
             <img
@@ -118,7 +142,10 @@ const Post = ({ data, cartVisible, makeCartVisible}) => {
                 2XL
               </div>
             </div>
-            <button className="w-full bg-black text-white py-2 rounded hidden lg:block">
+            <button
+              className="w-full bg-black text-white py-2 rounded hidden lg:block"
+              onClick={addToCart}
+            >
               Add to Cart
             </button>
           </div>
@@ -147,6 +174,7 @@ const mapDispatchToProps = (dispatch) => {
         type: "MAKE_CART_VISIBLE",
       });
     },
+    addItem: (item) => dispatch(addItem(item)),
   };
 };
 

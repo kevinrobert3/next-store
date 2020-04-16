@@ -14,16 +14,15 @@ const cartReducer=(state=initState, action)=>{
        let cartVisibility;
        if(state.cartVisible===true){
            cartVisibility=false;
-           //console.log(cartVisibility);
        }else{
            cartVisibility=true;
-           //console.log(cartVisibility);
        }
-       console.log(cartVisibility)
        return{
         ...state,
         cartVisible: cartVisibility,
        }
+    }else if(action.type==="ADD_ITEM"){
+        console.log(action.cartItem)
     }
     
     return state;

@@ -6,13 +6,7 @@ import Menu from "../components/menu";
 import AuthHoc from "../components/hoc/authhoc";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import Item from "../components/animate";
-import {
-  Transition,
-  CSSTransitionGroup,
-  CSSTransition,
-  TransitionGroup,
-} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 
 import Cart from "../components/cart";
 
@@ -55,11 +49,8 @@ class Index extends Component {
 
   render() {
     let className =
-      "h-screen w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row";
-    //console.log(this.props.cartVisible);
+      "w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row";
     const products = this.props.products;
-    //console.log(products);
-    //console.log(this.props.cartVisible)
     return (
       <>
         <NavBar
@@ -67,43 +58,30 @@ class Index extends Component {
           cartVisibility={this.props.cartVisible}
           noOfItems={this.props.noOfCartItems}
         />
-
         {/* <Menu /> */}
 
-        {/* <Item></Item> */}
-        
-        
-          <CSSTransition
-        in={this.props.cartVisible}
-        timeout={{
-          appear: 0,
-          enter: 0,
-          exit: 1000,
-        }}
-        appear={true}
-        unmountOnExit
-        classNames="step"
-      >
+        <CSSTransition
+          in={this.props.cartVisible}
+          timeout={{
+            appear: 0,
+            enter: 0,
+            exit: 1000,
+          }}
+          appear={true}
+          unmountOnExit
+          classNames="step"
+        >
           <Cart makeCartVisible={this.props.makeCartVisible} />
         </CSSTransition>
-     
-
-       
-
-        <div className={className}>
-          <Product products={products} />
-        </div>
-
-        {/* += " lg:opacity-100" */}
-        {/* {this.props.cartVisible === true ? (
-          <div className={(className )}>
+        {this.props.cartVisible === true ? (
+          <div className={(className += " lg:opacity-50")} id="main">
             <Product products={products} />
           </div>
         ) : (
-          <div className={className}>
+          <div className={className} id="main">
             <Product products={products} />
           </div>
-        )} */}
+        )}
       </>
     );
   }

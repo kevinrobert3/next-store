@@ -14,14 +14,15 @@ function signOut() {
 }
 function NavBar({ cartVisibility, noOfCartItems, makeCartVisible }) {
   let className;
-  //if (cartVisibility===true){
+  if (cartVisibility===true){
+    className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky lg:opacity-50"
+  }else{
     className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
- // }else{
-   // className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky"
-  // }
+   }
 
   return (
     <nav className={className}>
+      
       <svg onClick={makeCartVisible}
         className="fill-current h-5 w-5 cursor-pointer"
         viewBox="0 0 20 20"
