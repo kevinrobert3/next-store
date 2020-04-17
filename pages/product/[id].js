@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import AuthHoc from "../../components/hoc/authhoc";
 import NavBar from "../../components/navbar";
-import { loadDB } from "../../lib/config";
+import { db } from "../../lib/config";
 import { connect } from "react-redux";
-import Cart from "../../components/cart";
+import Cart from "../../components/cart/cart";
 import { CSSTransition } from "react-transition-group";
 import { addItem } from "../../store/actions/cartActions";
 
@@ -13,7 +13,6 @@ export async function getServerSideProps(context) {
   // const router = useRouter();
   // console.log(router);
   let data = [];
-  let db = loadDB().firestore();
   var docRef = db.collection("Products").doc(docID);
   await docRef
     .get()
@@ -40,9 +39,10 @@ export async function getServerSideProps(context) {
   };
 }
 
-const Post = ({ data, cartVisible, makeCartVisible, addItem }) => {
+const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
   // console.log(makeCartVisible);
   // console.log(cartVisible);
+  // console.log(userUID)
 
   const router = useRouter();
   //console.log(router);
@@ -60,7 +60,10 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem }) => {
   }
 
   function addToCart(item) {
-    addItem(data[0])
+    if(userUID!==null){
+      addItem(data[0], userUID)
+    }
+   
    
   }
 
@@ -164,6 +167,7 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem }) => {
 const mapStateToProps = (state) => {
   return {
     cartVisible: state.cart.cartVisible,
+    userUID: state.user.UUID
   };
 };
 
@@ -174,7 +178,14 @@ const mapDispatchToProps = (dispatch) => {
         type: "MAKE_CART_VISIBLE",
       });
     },
-    addItem: (item) => dispatch(addItem(item)),
+    setUser: (userType, UID) => {
+      dispatch({
+        type: "SET_USER",
+        ifAnonymous: userType,
+        userUID: UID,
+      });
+    },
+    addItem: (item, UID) => dispatch(addItem(item, UID)),
   };
 };
 

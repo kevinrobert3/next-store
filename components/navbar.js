@@ -1,8 +1,8 @@
 import React from "react";
-import { loadDB } from "../lib/config";
+import { auth } from "../lib/config";
+import { db } from "../lib/config";
 import { connect } from "react-redux";
 function signOut() {
-  let auth = loadDB().auth();
   auth
     .signOut()
     .then(function () {
@@ -12,7 +12,10 @@ function signOut() {
       // An error happened.
     });
 }
-function NavBar({ cartVisibility, noOfCartItems, makeCartVisible }) {
+function NavBar({ cartVisibility, noOfCartItems, makeCartVisible, userID }) {
+if(userID!==null){
+  //db.collection("UserCart").doc(userID).
+}
   let className;
   if (cartVisibility===true){
     className="flex items-center justify-between flex-wrap bg-white py-4 px-8 lg:py-6 lg:px-8 lg:px-32 sticky lg:opacity-50"
@@ -87,6 +90,7 @@ function NavBar({ cartVisibility, noOfCartItems, makeCartVisible }) {
 const mapStateToProps = (state) => {
   return {
     noOfCartItems: state.cart.noOfItems,
+    userID: state.user.UUID,
   };
 };
 // const mapDispatchToProps = (dispatch) => {

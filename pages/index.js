@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { loadDB } from "../lib/config";
+import { db } from "../lib/config";
 import Product from "../components/product";
 import NavBar from "../components/navbar";
 import Menu from "../components/menu";
@@ -8,10 +8,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 
-import Cart from "../components/cart";
+import Cart from "../components/cart/cart";
 
 export async function getStaticProps() {
-  let db = loadDB().firestore();
   let products = await db
     .collection("Products")
     .get()
@@ -100,8 +99,16 @@ const mapDispatchToProps = (dispatch) => {
         type: "MAKE_CART_VISIBLE",
       });
     },
+    setUser: (userType, UID) => {
+      dispatch({
+        type: "SET_USER",
+        ifAnonymous: userType,
+        userUID: UID,
+      });
+    },
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthHoc(Index));
+//export default connect(mapStateToProps, mapDispatchToProps)(Index);
 //export default AuthHoc(Index);
