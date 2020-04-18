@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import CartItem from "../cart/cartItem";
 import Total from "../cart/total";
 
+import { removeItem } from "../../store/actions/cartActions";
+
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -19,12 +21,19 @@ class Cart extends Component {
 
   componentDidMount = () => {
     document.addEventListener("mousedown", this.handleClick);
-    
   };
 
   componentWillUnmount = () => {
     // console.log("unmounting");
     document.removeEventListener("mousedown", this.handleClick);
+  };
+
+  removeItem = (CartItemID) => {
+    if (this.props.userUID !== null) {
+      // console.log(this.props.userUID);
+      // console.log(CartItemID);
+      removeItem(CartItemID);
+    }
   };
 
   handleClick = (e) => {
@@ -39,7 +48,7 @@ class Cart extends Component {
   };
 
   render() {
-    console.log(this.props.cartItems);
+    //console.log(this.props.cartItems);
     return (
       <div
         className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 flex flex-col shadow-lg z-50 lg:opacity-50"
@@ -70,7 +79,10 @@ class Cart extends Component {
           </div>
         </div>
         <div className="w-full h-full bg-gray-200 lg:bg-gray-100 px-5 py-4 relative overflow-y-auto">
-          <CartItem items={this.props.cartItems} />
+          <CartItem
+            items={this.props.cartItems}
+            removeItem={this.removeItem}
+          />
         </div>
 
         <Total />
@@ -83,7 +95,14 @@ const mapStateToProps = (state) => {
   return {
     cartVisible: state.cart.cartVisible,
     cartItems: state.cart.cartItems,
+    userUID: state.user.UUID,
   };
 };
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeItem: (CartItemID) => dispatch(removeItem(CartItemID)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

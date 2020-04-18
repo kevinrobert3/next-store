@@ -60,11 +60,9 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
   }
 
   function addToCart(item) {
-    if(userUID!==null){
-      addItem(data[0], userUID)
+    if (userUID !== null) {
+      addItem(data[0], userUID);
     }
-   
-   
   }
 
   return (
@@ -167,7 +165,7 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
 const mapStateToProps = (state) => {
   return {
     cartVisible: state.cart.cartVisible,
-    userUID: state.user.UUID
+    userUID: state.user.UUID,
   };
 };
 
