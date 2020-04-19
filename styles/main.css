@@ -1,9 +1,19 @@
 nav {
   border-bottom-style: solid;
-  border-bottom-color: #f7fafc;
-  border-bottom-width: 2px;
+  border-bottom-color: #EDF2F7;
+  border-bottom-width: 0.09em;
   position: fixed;
   top: 0;
+}
+/* .parent-nav{
+  position: fixed;
+  top: 0;
+} */
+.nav{
+  height: 0.1em;
+  /* position: fixed;
+  top: 0px; */
+  
 }
 .mobile-bottom-button-bar {
   border-top-style: solid;

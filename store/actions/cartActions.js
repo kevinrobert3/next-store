@@ -12,8 +12,11 @@ export const addItem = (item, UID) => {
       .then((doc) => {
         db.collection("UserCart")
           .doc(UID)
-          .add({
+          .set({
             cartItems: firebase.firestore.FieldValue.increment(1),
+          })
+          .catch((err) => {
+            console.log("Error!!!", err);
           });
 
         let data = [];
@@ -42,11 +45,12 @@ export const addItem = (item, UID) => {
   };
 };
 
-export const removeItem=(CartItemID)=>{
-  return (dispatch, getState)=>{
+export const removeItem = (CartItemID) => {
+  console.log(CartItemID)
+  return (dispatch, getState) => {
     dispatch({
       type: "REMOVE_ITEM",
-      CartItemID: CartItemID
-    })
-  }
-}
+      CartItemID: CartItemID,
+    });
+  };
+};

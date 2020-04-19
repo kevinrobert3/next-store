@@ -1,5 +1,12 @@
 @tailwind base;
+
+a:hover {
+  /* color: theme("colors.orange"); */
+  text-decoration: underline;
+  text-decoration-color: #F6AD55;
+  
+}
+
+
 @tailwind components;
 @tailwind utilities;
-
-

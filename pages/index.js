@@ -7,6 +7,7 @@ import AuthHoc from "../components/hoc/authhoc";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
+import Head from 'next/head'
 
 import Cart from "../components/cart/cart";
 
@@ -48,10 +49,17 @@ class Index extends Component {
 
   render() {
     let className =
-      "w-full bg-red-100 py-6 px-8 lg:px-32 flex flex-col lg:flex-row";
+      "w-full bg-white py-6 px-8 lg:px-32 flex flex-col lg:flex-row";
     const products = this.props.products;
     return (
       <>
+      
+      <Head>
+        <title>Home page</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="theme-color" content="#e69a52"></meta>
+      </Head>
+      {/* Sandy Brown #e69a52  #ea5 rgb(230,154,82) */}
         <NavBar
           makeCartVisible={this.props.makeCartVisible}
           cartVisibility={this.props.cartVisible}

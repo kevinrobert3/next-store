@@ -36,7 +36,11 @@ const cartReducer = (state = initState, action) => {
     };
   }else if(action.type==="REMOVE_ITEM"){
     console.log(action.type)
-    return
+   // return
+   return {
+    ...state,
+    noOfItems: state.noOfItems + 1,
+  };
   }
   //console.log(state.noOfItems);
 

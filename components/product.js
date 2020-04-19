@@ -28,7 +28,7 @@ function Product({ products }) {
                   }}
                   // as={`/product/${product.slug_name}`}
                 >
-                  <a className="cursor-pointer hover:underline font-medium text-base mb-1 ml-1">
+                  <a className="cursor-pointer font-medium text-base mb-1 ml-1">
                     {product.Name}
                   </a>
                 </Link>

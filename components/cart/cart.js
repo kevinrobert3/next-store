@@ -101,7 +101,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeItem: (CartItemID) => dispatch(removeItem(CartItemID)),
+    removeItem: (CartItemID) => 
+    //console.log(CartItemID),
+    dispatch(removeItem(CartItemID)),
   };
 };
 

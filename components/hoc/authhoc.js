@@ -1,5 +1,6 @@
 import React from "react";
 import { auth } from "../../lib/config";
+import { db } from "../../lib/config";
 import { connect } from "react-redux";
 
 let UID;
@@ -14,10 +15,21 @@ const AuthHoc = (Component) => {
       //console.log(props.setUser)
     }
 
+    fetchData(UID) {
+      //console.log("dwdwef")
+      let userCartSubscription = db
+        .collection("UserCart")
+        .doc(UID)
+        .onSnapshot(function (doc) {
+          console.log("Current data: ", doc.data().cartItems);
+        });
+    }
+
     componentDidMount() {
       auth.onAuthStateChanged((user) => {
         if (user) {
           UID = user.uid;
+          this.fetchData(UID);
           this.setState({
             status: "SIGNED_IN",
           });
@@ -50,7 +62,10 @@ const AuthHoc = (Component) => {
         }
       });
     }
-    componentWillUnmount() {}
+    componentWillUnmount(userCartSubscription) {
+      // userCartSubscription();
+      console.log(this.fetchData(UID).userCartSubscription())
+    }
     renderContent() {
       ///console.log(this.state)
       const { status, anonymous } = this.state;

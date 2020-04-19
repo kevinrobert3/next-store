@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import Cart from "../../components/cart/cart";
 import { CSSTransition } from "react-transition-group";
 import { addItem } from "../../store/actions/cartActions";
+import Head from 'next/head'
 
 export async function getServerSideProps(context) {
   let docID = context.query.key;
@@ -67,6 +68,11 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
 
   return (
     <>
+    <Head>
+        <title>Home page</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="theme-color" content="#e69a52"></meta>
+      </Head>
       <NavBar makeCartVisible={makeCartVisible} cartVisibility={cartVisible} />
       <CSSTransition
         in={cartVisible}
@@ -153,8 +159,11 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
         </div>
       </div>
 
-      <div className="w-full h-auto bg-white shadow-2xl block lg:hidden fixed bottom-0 flex justify-center mobile-bottom-button-bar">
-        <button className="bg-black text-white py-2 px-24 rounded my-2">
+      <div className="w-full h-auto bg-white shadow-2xl block lg:hidden fixed bottom-0 flex px-5 justify-center mobile-bottom-button-bar">
+        <button
+          className="bg-black text-white py-2 px-24 w-full rounded my-2"
+          onClick={addToCart}
+        >
           Add to Cart
         </button>
       </div>
