@@ -7,37 +7,37 @@ export const addItem = (item, UID) => {
       .doc(UID)
       .collection("CartItems")
       .add({
-        cartItem: item,
+        item,
       })
       .then((doc) => {
         db.collection("UserCart")
           .doc(UID)
-          .set({
+          .update({
             cartItems: firebase.firestore.FieldValue.increment(1),
           })
           .catch((err) => {
             console.log("Error!!!", err);
           });
 
-        let data = [];
+        // let data = [];
 
-        data.push(
-          Object.assign(
-            {
-              CartItemID: doc.id,
-            },
-            item
-          )
-        );
+        // data.push(
+        //   Object.assign(
+        //     {
+        //       CartItemID: doc.id,
+        //     },
+        //     item
+        //   )
+        // );
 
-        dispatch({
-          type: "ADD_ITEM",
-          cartItem: data,
-        });
+        // dispatch({
+        //   type: "ADD_ITEM",
+        //   cartItem: data,
+        // });
 
-        dispatch({
-          type: "ADD_COUNT",
-        });
+        // dispatch({
+        //   type: "ADD_COUNT",
+        // });
       })
       .catch((err) => {
         console.log("ERROR:", err);

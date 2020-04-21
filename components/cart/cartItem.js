@@ -6,11 +6,21 @@ import React from "react";
 
 function CartItem({ items, removeItem }) {
 
-//console.log(removeItem)
+// if(items.length>0){
+// console.log("not empty")
+// }else{
+//   console.log("empty")
+// }
   
 
   return items.map((item) => {
-    //console.log(item[0]);
+    //console.log(item[0].item);
+    if(item){
+     // console.log(item.)
+      console.log("empty")
+    }else{
+      console.log("ju")
+    }
     return (
       <div
         className="w-full h-32 bg-white rounded shadow flex flex-row mb-4"

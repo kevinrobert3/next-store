@@ -4,6 +4,9 @@ import { db } from "../../lib/config";
 import { connect } from "react-redux";
 
 let UID;
+let noOfItems;
+let userCartSubscription;
+
 const AuthHoc = (Component) => {
   return class extends React.Component {
     constructor(props) {
@@ -15,13 +18,55 @@ const AuthHoc = (Component) => {
       //console.log(props.setUser)
     }
 
-    fetchData(UID) {
-      //console.log("dwdwef")
-      let userCartSubscription = db
+    fetchCartItems(UID, props) {
+      // db.collection("UserCart")
+      //   .doc(UID)
+      //   .collection("CartItems")
+      //   .onSnapshot(function (querySnapshot) {
+      //     var cities = [];
+      //     querySnapshot.forEach(function (doc) {
+      //       //console.log(doc.data())
+      //       props.setCartItems(doc.data());
+      //     });
+      //   });
+      db.collection("UserCart")
+        .doc(UID)
+        .collection("CartItems")
+        .onSnapshot(function (snapshot) {
+          snapshot.docChanges().forEach(function (change) {
+            if (change.type === "added") {
+              //console.log("New Item: ", change.doc.data());
+              let data = [];
+              data.push(
+                Object.assign(
+                  {
+                    CartItemID: change.doc.id,
+                  },
+                  change.doc.data()
+                )
+              );
+              //console.log(data)
+              props.setCartItems(data);
+            }
+            if (change.type === "modified") {
+              //console.log("Modified Item: ", change.doc.data());
+              //props.setCartItems(doc.data());
+            }
+            if (change.type === "removed") {
+              //console.log("Removed Item: ", change.doc.data());
+              //props.setCartItems(doc.data());
+            }
+          });
+        });
+    }
+
+    fetchNoOfItems(UID, props) {
+      userCartSubscription = db
         .collection("UserCart")
         .doc(UID)
         .onSnapshot(function (doc) {
-          console.log("Current data: ", doc.data().cartItems);
+          noOfItems = doc.data().cartItems;
+          props.setCartNo(noOfItems);
         });
     }
 
@@ -29,7 +74,9 @@ const AuthHoc = (Component) => {
       auth.onAuthStateChanged((user) => {
         if (user) {
           UID = user.uid;
-          this.fetchData(UID);
+          this.fetchNoOfItems(UID, this.props);
+          this.fetchCartItems(UID, this.props);
+
           this.setState({
             status: "SIGNED_IN",
           });
@@ -52,20 +99,32 @@ const AuthHoc = (Component) => {
           }
         } else {
           // console.log("no user:,, but i'm signing you anonymously right now....");
-          auth.signInAnonymously().catch(function (error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-          });
+          auth
+            .signInAnonymously()
+            .then(function (cred) {
+              db.collection("UserCart")
+                .doc(cred.user.uid)
+                .set({
+                  cartItems: 0,
+                })
+                .then(function () {
+                  console.log("Document successfully written!");
+                })
+                .catch(function (error) {
+                  console.error("Error writing document: ", error);
+                });
+            })
+            .catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(errorCode);
+              console.log(errorMessage);
+            });
         }
       });
     }
-    componentWillUnmount(userCartSubscription) {
-      // userCartSubscription();
-      console.log(this.fetchData(UID).userCartSubscription())
-    }
+    componentWillUnmount() {}
     renderContent() {
       ///console.log(this.state)
       const { status, anonymous } = this.state;

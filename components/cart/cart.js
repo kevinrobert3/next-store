@@ -5,6 +5,8 @@ import Total from "../cart/total";
 
 import { removeItem } from "../../store/actions/cartActions";
 
+import { db } from "../../lib/config";
+
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -13,14 +15,32 @@ class Cart extends Component {
   handleClickOutside = (event) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       alert("outside");
-      //this.setState({ showOptions: false });
     } else {
       alert("You clicked inside of me!");
     }
   };
 
+  fetchCartItems(userUID) {
+    //console.log(userUID)
+    db.collection("UserCart")
+      .doc(userUID)
+      .collection("CartItems")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  }
+
   componentDidMount = () => {
     document.addEventListener("mousedown", this.handleClick);
+    //console.log(this.props)
+    //this.fetchCartItems(this.props.userUID)
   };
 
   componentWillUnmount = () => {
@@ -48,7 +68,7 @@ class Cart extends Component {
   };
 
   render() {
-    //console.log(this.props.cartItems);
+    console.log(this.props.cartItems[0]);
     return (
       <div
         className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 flex flex-col shadow-lg z-50 lg:opacity-50"
@@ -79,10 +99,13 @@ class Cart extends Component {
           </div>
         </div>
         <div className="w-full h-full bg-gray-200 lg:bg-gray-100 px-5 py-4 relative overflow-y-auto">
-          <CartItem
+          {this.props.cartItems.length > 0 ?
+          
+          <p>not empty</p> : <p>empty as a mf</p>}
+          {/* <CartItem
             items={this.props.cartItems}
             removeItem={this.removeItem}
-          />
+          /> */}
         </div>
 
         <Total />
@@ -101,9 +124,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeItem: (CartItemID) => 
-    //console.log(CartItemID),
-    dispatch(removeItem(CartItemID)),
+    removeItem: (CartItemID) => dispatch(removeItem(CartItemID)),
   };
 };
 

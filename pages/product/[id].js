@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Cart from "../../components/cart/cart";
 import { CSSTransition } from "react-transition-group";
 import { addItem } from "../../store/actions/cartActions";
-import Head from 'next/head'
+import Head from "next/head";
 
 export async function getServerSideProps(context) {
   let docID = context.query.key;
@@ -41,9 +41,7 @@ export async function getServerSideProps(context) {
 }
 
 const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
-  // console.log(makeCartVisible);
-  // console.log(cartVisible);
-  // console.log(userUID)
+  //console.log(noOfItems)
 
   const router = useRouter();
   //console.log(router);
@@ -68,7 +66,7 @@ const Post = ({ data, cartVisible, makeCartVisible, addItem, userUID }) => {
 
   return (
     <>
-    <Head>
+      <Head>
         <title>Home page</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="theme-color" content="#e69a52"></meta>
@@ -183,6 +181,19 @@ const mapDispatchToProps = (dispatch) => {
     makeCartVisible: () => {
       dispatch({
         type: "MAKE_CART_VISIBLE",
+      });
+    },
+    setCartItems: (item) => {
+      dispatch({
+        type: "ADD_CART_ITEM",
+        item: item,
+      });
+    },
+    setCartNo: (number) => {
+    
+      dispatch({
+        type: "SET_CART_COUNT",
+        count: number,
       });
     },
     setUser: (userType, UID) => {

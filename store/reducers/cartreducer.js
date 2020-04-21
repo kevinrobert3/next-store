@@ -1,14 +1,7 @@
 const initState = {
   cartVisible: false,
   noOfItems: 0,
-  cartItems: [
-    // {
-    //   id: "1",
-    //   type: "Trouser",
-    //   price: 1400,
-    //   name: "Fine Trouser",
-    // },
-  ],
+  cartItems: [],
 };
 
 const cartReducer = (state = initState, action) => {
@@ -24,25 +17,24 @@ const cartReducer = (state = initState, action) => {
       cartVisible: cartVisibility,
     };
   } else if (action.type === "ADD_ITEM") {
-    // console.log(action.cartItem)
     return {
       ...state,
       cartItems: [...state.cartItems, action.cartItem],
     };
-  } else if (action.type === "ADD_COUNT") {
+  } else if (action.type === "SET_CART_COUNT") {
     return {
       ...state,
-      noOfItems: state.noOfItems + 1,
+      noOfItems: action.count,
     };
-  }else if(action.type==="REMOVE_ITEM"){
-    console.log(action.type)
-   // return
-   return {
-    ...state,
-    noOfItems: state.noOfItems + 1,
-  };
+  } else if (action.type === "ADD_CART_ITEM") {
+    //console.log(action.item)
+    return {
+      ...state,
+      //cartItems: [...state.cartItems, action.item],
+      //cartItems: [ action.item],
+      cartItems: []
+    };
   }
-  //console.log(state.noOfItems);
 
   return state;
 };
