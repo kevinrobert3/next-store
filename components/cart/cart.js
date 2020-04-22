@@ -50,9 +50,7 @@ class Cart extends Component {
 
   removeItem = (CartItemID) => {
     if (this.props.userUID !== null) {
-      // console.log(this.props.userUID);
-      // console.log(CartItemID);
-      removeItem(CartItemID);
+      removeItem(CartItemID, this.props.userUID);
     }
   };
 
@@ -68,7 +66,7 @@ class Cart extends Component {
   };
 
   render() {
-    console.log(this.props.cartItems[0]);
+    //console.log(this.props.cartItems);
     return (
       <div
         className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 flex flex-col shadow-lg z-50 lg:opacity-50"
@@ -99,16 +97,17 @@ class Cart extends Component {
           </div>
         </div>
         <div className="w-full h-full bg-gray-200 lg:bg-gray-100 px-5 py-4 relative overflow-y-auto">
-          {this.props.cartItems.length > 0 ?
-          
-          <p>not empty</p> : <p>empty as a mf</p>}
-          {/* <CartItem
-            items={this.props.cartItems}
-            removeItem={this.removeItem}
-          /> */}
+          {this.props.cartItems.length > 0 ? (
+            <CartItem
+              items={this.props.cartItems}
+              removeItem={this.removeItem}
+              UID={this.props.userUID}
+            />
+          ) : (
+            <p>Go Shopping You dont have any items</p>
+          )}
         </div>
-
-        <Total />
+        {this.props.cartItems.length > 0 ? <Total /> : null}
       </div>
     );
   }
@@ -124,7 +123,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeItem: (CartItemID) => dispatch(removeItem(CartItemID)),
+    removeItem: (CartItemID, UID) => dispatch(removeItem(CartItemID, UID)),
   };
 };
 

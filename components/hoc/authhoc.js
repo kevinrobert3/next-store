@@ -19,16 +19,6 @@ const AuthHoc = (Component) => {
     }
 
     fetchCartItems(UID, props) {
-      // db.collection("UserCart")
-      //   .doc(UID)
-      //   .collection("CartItems")
-      //   .onSnapshot(function (querySnapshot) {
-      //     var cities = [];
-      //     querySnapshot.forEach(function (doc) {
-      //       //console.log(doc.data())
-      //       props.setCartItems(doc.data());
-      //     });
-      //   });
       db.collection("UserCart")
         .doc(UID)
         .collection("CartItems")
@@ -54,7 +44,7 @@ const AuthHoc = (Component) => {
             }
             if (change.type === "removed") {
               //console.log("Removed Item: ", change.doc.data());
-              //props.setCartItems(doc.data());
+              props.deleteItem(change.doc.id);
             }
           });
         });
@@ -66,7 +56,7 @@ const AuthHoc = (Component) => {
         .doc(UID)
         .onSnapshot(function (doc) {
           noOfItems = doc.data().cartItems;
-          props.setCartNo(noOfItems);
+         props.setCartNo(noOfItems);
         });
     }
 

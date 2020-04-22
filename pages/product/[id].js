@@ -189,8 +189,13 @@ const mapDispatchToProps = (dispatch) => {
         item: item,
       });
     },
+    deleteItem: (id) => {
+      dispatch({
+        type: "REMOVE_ITEM",
+        itemID: id
+      });
+    },
     setCartNo: (number) => {
-    
       dispatch({
         type: "SET_CART_COUNT",
         count: number,

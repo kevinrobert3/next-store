@@ -16,23 +16,42 @@ const cartReducer = (state = initState, action) => {
       ...state,
       cartVisible: cartVisibility,
     };
-  } else if (action.type === "ADD_ITEM") {
-    return {
-      ...state,
-      cartItems: [...state.cartItems, action.cartItem],
-    };
   } else if (action.type === "SET_CART_COUNT") {
     return {
       ...state,
       noOfItems: action.count,
     };
   } else if (action.type === "ADD_CART_ITEM") {
-    //console.log(action.item)
+    // console.log(state);
+    // return{
+    // ...initState,
+    // }
+    if (
+      state.cartItems.filter(
+        (item) => item.CartItemID === action.item[0].CartItemID
+      ).length > 0
+    ) {
+      //console.log("there");
+      return {
+        ...state,
+      };
+    } else {
+      // console.log("not there")
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.item[0]],
+        //cartItems: []
+      };
+    }
+  } else if (action.type === "REMOVE_ITEM") {
+    //console.log(action.itemID);
     return {
       ...state,
-      //cartItems: [...state.cartItems, action.item],
-      //cartItems: [ action.item],
-      cartItems: []
+      // cartItems: [...state.cartItems, action.item[0]],
+      cartItems: [
+        ...state.cartItems.filter((item) => item.CartItemID !== action.itemID),
+      ],
+      //cartItems: []
     };
   }
 

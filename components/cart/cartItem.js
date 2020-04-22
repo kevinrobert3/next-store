@@ -1,30 +1,15 @@
 import React from "react";
 
-// function removeItem(CartItemID){
-//   console.log(CartItemID)
-// }
-
 function CartItem({ items, removeItem }) {
-
-// if(items.length>0){
-// console.log("not empty")
-// }else{
-//   console.log("empty")
-// }
-  
+   //console.log(removeItem)
 
   return items.map((item) => {
-    //console.log(item[0].item);
-    if(item){
-     // console.log(item.)
-      console.log("empty")
-    }else{
-      console.log("ju")
-    }
+    //console.log(item.CartItemID);
+
     return (
       <div
         className="w-full h-32 bg-white rounded shadow flex flex-row mb-4"
-        key={item[0].CartItemID}
+        key={item.CartItemID}
       >
         <div className="h-full w-1/3 bg-white flex justify-center py-3 rounded-tl rounded-bl">
           <img
@@ -33,7 +18,7 @@ function CartItem({ items, removeItem }) {
           ></img>
         </div>
         <div className="h-full w-2/3 bg-white py-2">
-          <span className="font-semibold">{item[0].Name}</span>
+          <span className="font-semibold">{item.item.Name}</span>
           <br></br>
           <span className="text-sm text-gray-800">Description</span> <br></br>
           <span className="text-sm text-gray-800">Child Xl</span> <br></br>
@@ -45,7 +30,7 @@ function CartItem({ items, removeItem }) {
               min="1"
               max="8"
             ></input>
-            @<span className="ml-1">Kshs {item[0].Price}</span>
+            @<span className="ml-1">Kshs {item.item.Price}</span>
           </div>
         </div>
         <div className="h-full w-8 bg-white rounded-tr rounded-br">
@@ -55,10 +40,11 @@ function CartItem({ items, removeItem }) {
             className="h-4 lg:h-5 lg:border lg:border-1 lg:border-white mt-2 ml-1 cursor-pointer fill-current text-gray-700"
             strokeWidth="1"
             title="Remove Item"
+            onClick={() =>
+              //console.log(UID)
 
-            onClick={()=>
-              
-              removeItem(item[0].CartItemID)}
+              removeItem(item.CartItemID)
+            }
           >
             <path d="M2.93 17.07A10 10 0 1117.07 2.93 10 10 0 012.93 17.07zm1.41-1.41A8 8 0 1015.66 4.34 8 8 0 004.34 15.66zm9.9-8.49L11.41 10l2.83 2.83-1.41 1.41L10 11.41l-2.83 2.83-1.41-1.41L8.59 10 5.76 7.17l1.41-1.41L10 8.59l2.83-2.83 1.41 1.41z" />
           </svg>

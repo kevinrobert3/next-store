@@ -107,6 +107,24 @@ const mapDispatchToProps = (dispatch) => {
         type: "MAKE_CART_VISIBLE",
       });
     },
+    setCartItems: (item) => {
+      dispatch({
+        type: "ADD_CART_ITEM",
+        item: item,
+      });
+    },
+    deleteItem: (id) => {
+      dispatch({
+        type: "REMOVE_ITEM",
+        itemID: id
+      });
+    },
+    setCartNo: (number) => {
+      dispatch({
+        type: "SET_CART_COUNT",
+        count: number,
+      });
+    },
     setUser: (userType, UID) => {
       dispatch({
         type: "SET_USER",
