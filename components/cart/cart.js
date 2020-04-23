@@ -72,17 +72,17 @@ class Cart extends Component {
         className="bg-white w-full lg:w-1/3 h-screen fixed top-0 right-0 flex flex-col shadow-lg z-50 lg:opacity-50"
         ref={(node) => (this.node = node)}
       >
-        <div className="w-full h-12 bg-white lg:bg-white fixed top-0 px-5 py-3 relative leading-none cart-head-bottom-shadow">
+        <div className="w-full h-12 bg-white lg:bg-white fixed top-0 px-5 py-3 relative leading-none cart-head-bottom-shadow shadow-2xl">
           <span className="font-semibold">Shopping Cart</span>
           <div
             className="flex flex-row float-right cursor-pointer"
             onClick={this.props.makeCartVisible}
           >
-            <span className="text-sm">Close</span>
+            <span className="text-sm text-orange-400">Close</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
-              className="h-3 ml-1 hidden lg:block"
+              className="h-3 ml-1 hidden lg:block fill-current text-orange-400"
               id="close"
             >
               <path d="M16.172 9l-6.071-6.071 1.414-1.414L20 10l-.707.707-7.778 7.778-1.414-1.414L16.172 11H0V9z" />
@@ -90,13 +90,13 @@ class Cart extends Component {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
-              className="h-3 ml-1 lg:hidden"
+              className="h-3 ml-1 lg:hidden fill-current text-orange-400"
             >
               <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
             </svg>
           </div>
         </div>
-        <div className="w-full h-full bg-gray-200 lg:bg-gray-100 px-5 py-4 relative overflow-y-auto">
+        <div className="w-full h-full lg:bg-gray-100 px-5 py-4 relative overflow-y-auto cart-back">
           {this.props.cartItems.length > 0 ? (
             <CartItem
               items={this.props.cartItems}
@@ -107,7 +107,9 @@ class Cart extends Component {
             <p>Go Shopping You dont have any items</p>
           )}
         </div>
-        {this.props.cartItems.length > 0 ? <Total /> : null}
+        {this.props.cartItems.length > 0 ? (
+          <Total items={this.props.cartItems} />
+        ) : null}
       </div>
     );
   }

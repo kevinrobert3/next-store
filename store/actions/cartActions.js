@@ -1,13 +1,16 @@
 import { db } from "../../lib/config";
 import firebase from "firebase/app";
 
-export const addItem = (item, UID) => {
+export const addItem = (item, UID, quantity) => {
+  quantity=1
   return (dispatch, getState) => {
     db.collection("UserCart")
       .doc(UID)
       .collection("CartItems")
       .add({
         item,
+        qty:quantity
+
       })
       .then((doc) => {
         db.collection("UserCart")

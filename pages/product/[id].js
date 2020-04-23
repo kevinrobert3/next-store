@@ -189,12 +189,7 @@ const mapDispatchToProps = (dispatch) => {
         item: item,
       });
     },
-    deleteItem: (id) => {
-      dispatch({
-        type: "REMOVE_ITEM",
-        itemID: id
-      });
-    },
+    
     setCartNo: (number) => {
       dispatch({
         type: "SET_CART_COUNT",
@@ -208,7 +203,20 @@ const mapDispatchToProps = (dispatch) => {
         userUID: UID,
       });
     },
-    addItem: (item, UID) => dispatch(addItem(item, UID)),
+    addItem: (item, UID, quantity) => dispatch(addItem(item, UID, quantity)),
+    deleteItem: (id) => {
+      dispatch({
+        type: "REMOVE_ITEM",
+        itemID: id
+      });
+    },
+    updateItem: (newData, docID)=>{
+      dispatch({
+        type: "UPDATE_ITEM",
+        newData: newData,
+        ID: docID
+      })
+    }
   };
 };
 

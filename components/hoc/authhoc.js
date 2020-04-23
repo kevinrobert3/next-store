@@ -40,7 +40,7 @@ const AuthHoc = (Component) => {
             }
             if (change.type === "modified") {
               //console.log("Modified Item: ", change.doc.data());
-              //props.setCartItems(doc.data());
+              props.updateItem(change.doc.data(), change.doc.id);
             }
             if (change.type === "removed") {
               //console.log("Removed Item: ", change.doc.data());

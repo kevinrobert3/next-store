@@ -22,6 +22,9 @@ nav {
   position: fixed;
   bottom: 0;
 }
+.cart-back{
+  background-color: #f6f7f8;
+}
 
 body::-webkit-scrollbar {
   width: 6px;
@@ -57,12 +60,13 @@ body {
 .cart-head-bottom-shadow {
   border-bottom-style: solid;
   border-bottom-color: #cbd5e0;
-  border-bottom-width: 1px;
+  border-bottom-width: 0.001em;
+ 
 }
 .cart-total-bottom-shadow {
   border-top-style: solid;
   border-top-color: #cbd5e0;
-  border-top-width: 1px;
+  border-top-width: 0.001em;
 }
 /* .cart-total{
   height: 20rem;

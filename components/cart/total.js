@@ -1,6 +1,7 @@
 import React from "react";
 
-function Total({}) {
+function Total({items}) {
+  //console.log(items)
   return (
     <div className="w-full h-64 lg:h-64 bg-white fixed bottom-0 relative cart-total-bottom-shadow cart-total px-5 py-2">
       <span className="text-gray-900 text-sm">Subtotal</span>

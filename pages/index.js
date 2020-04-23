@@ -119,6 +119,13 @@ const mapDispatchToProps = (dispatch) => {
         itemID: id
       });
     },
+    updateItem: (newData, docID)=>{
+      dispatch({
+        type: "UPDATE_ITEM",
+        newData: newData,
+        ID: docID
+      })
+    },
     setCartNo: (number) => {
       dispatch({
         type: "SET_CART_COUNT",

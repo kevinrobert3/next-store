@@ -1,3 +1,5 @@
+import update from "immutability-helper";
+
 const initState = {
   cartVisible: false,
   noOfItems: 0,
@@ -22,7 +24,6 @@ const cartReducer = (state = initState, action) => {
       noOfItems: action.count,
     };
   } else if (action.type === "ADD_CART_ITEM") {
-    // console.log(state);
     // return{
     // ...initState,
     // }
@@ -31,28 +32,61 @@ const cartReducer = (state = initState, action) => {
         (item) => item.CartItemID === action.item[0].CartItemID
       ).length > 0
     ) {
-      //console.log("there");
       return {
         ...state,
       };
     } else {
-      // console.log("not there")
       return {
         ...state,
         cartItems: [...state.cartItems, action.item[0]],
-        //cartItems: []
       };
     }
   } else if (action.type === "REMOVE_ITEM") {
     //console.log(action.itemID);
     return {
       ...state,
-      // cartItems: [...state.cartItems, action.item[0]],
       cartItems: [
         ...state.cartItems.filter((item) => item.CartItemID !== action.itemID),
       ],
-      //cartItems: []
     };
+  } else if (action.type === "UPDATE_ITEM") {
+    //console.log(action.newData.qty);
+    //console.log(action.ID);
+  //if (
+     // state.cartItems.filter((item) => item.CartItemID === action.ID).length > 0
+   // ) {
+      console.log(state.cartItems)
+      return{
+        ...state,
+        // cartItems:{
+        //   ...state.cartItems,
+
+        // }
+      }
+     
+
+    // return {
+    //   ...state, // copy state
+    //   cartItems: {
+    //     ...state.cartItems, // copy houses
+    //     [cartItems[0]]: {  // update one specific house (using Computed Property syntax)
+    //       ...state.cartItems[cartItems[0]],  // copy that specific house's properties
+    //       qty: newData.qty   // update its `points` property
+    //     }
+    //   }
+    // }
+
+    // return {
+    //   ...state, // copy state
+    //   houses: {
+    //     ...state.houses, // copy houses
+    //     [key]: {  // update one specific house (using Computed Property syntax)
+    //       ...state.houses[key],  // copy that specific house's properties
+    //       points: state.houses[key].points + 3   // update its `points` property
+    //     }
+    //   }
+    // }
+//  }
   }
 
   return state;
