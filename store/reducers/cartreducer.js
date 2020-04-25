@@ -1,5 +1,4 @@
 import update from "immutability-helper";
-
 const initState = {
   cartVisible: false,
   noOfItems: 0,
@@ -52,41 +51,31 @@ const cartReducer = (state = initState, action) => {
   } else if (action.type === "UPDATE_ITEM") {
     //console.log(action.newData.qty);
     //console.log(action.ID);
-  //if (
-     // state.cartItems.filter((item) => item.CartItemID === action.ID).length > 0
-   // ) {
-      console.log(state.cartItems)
-      return{
-        ...state,
-        // cartItems:{
-        //   ...state.cartItems,
-
-        // }
+    // console.log(state.cartItems);
+    var index = -1;
+    for (var i = 0; i < state.cartItems.length; i++) {
+      if (state.cartItems[i].CartItemID === action.ID) {
+        index = i;
+        break;
       }
-     
+    }
+    //console.log(index);
+    console.log(action.newData)
+//console.log(state.cartItems[index]);
+let data=[];
+data.push(
+Object.assign(
+  {
+    CartItemID: action.ID,
+  },
+  action.newData
+))
+console.log(data)
 
-    // return {
-    //   ...state, // copy state
-    //   cartItems: {
-    //     ...state.cartItems, // copy houses
-    //     [cartItems[0]]: {  // update one specific house (using Computed Property syntax)
-    //       ...state.cartItems[cartItems[0]],  // copy that specific house's properties
-    //       qty: newData.qty   // update its `points` property
-    //     }
-    //   }
-    // }
-
-    // return {
-    //   ...state, // copy state
-    //   houses: {
-    //     ...state.houses, // copy houses
-    //     [key]: {  // update one specific house (using Computed Property syntax)
-    //       ...state.houses[key],  // copy that specific house's properties
-    //       points: state.houses[key].points + 3   // update its `points` property
-    //     }
-    //   }
-    // }
-//  }
+// return{
+//   ...state,
+//   cartItems:[...state.cartItems, data ]
+// }
   }
 
   return state;

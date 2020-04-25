@@ -59,7 +59,7 @@ function CartItem({ items, removeItem, UID }) {
               max="100"
               onChange={handleQtyChange}
             ></input>
-            @
+            <span className="text-gray-800">@</span>
             <span className="ml-1 text-sm text-gray-800">
               Kshs {item.item.Price}
             </span>

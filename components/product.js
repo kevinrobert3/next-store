@@ -13,12 +13,12 @@ function Product({ products }) {
               key={product.id}
             >
               <div className="bg-white rounded flex-1">
-                {/* <img
+                <img
                   title={product.Name}
                   className="w-full h-64 object-cover object-center rounded-t cursor-pointer"
                   alt={product.Name}
                   src={product.Image[0]}
-                ></img> */}
+                ></img>
               </div>
               <div className="bg-white rounded-b flex flex-col py-4 pl-2 leading-relaxed lg:py-0">
                 <Link

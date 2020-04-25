@@ -1,0 +1,11 @@
+{
+  "name": "Vazi",
+  "short_name": "V",
+  "theme_color": "#e69a52",
+  "background_color": "#2196f3",
+  "display": "browser",
+  "Scope": "/",
+  "start_url": "/",
+  "icons": null,
+  "splash_pages": null
+}
